@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ecommerce.payments.v1;
+
+option java_package = "com.ecom.payments.v1";
+option java_multiple_files = true;
+
+message Payment {
+  string id = 1;
+  string order_id = 2;
+  double amount = 3;
+  string status = 4;
+}

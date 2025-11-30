@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package transport;
+
+option go_package = "github.com/Hari-Krishna-Moorthy/ecom/gen/transport/go";
+
+import "google/protobuf/descriptor.proto";
+
+message RestConfig {
+  string method = 1;
+  string path = 2;
+  string body = 3;
+  string service = 4;
+}
+
+message KafkaConfig {
+  string topic = 1;
+  string key_field = 2;
+  string value_field = 3;
+  string service = 4;
+}
+
+extend google.protobuf.MethodOptions {
+  RestConfig rest = 50001;
+  KafkaConfig kafka = 50002;
+}

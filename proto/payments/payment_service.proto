@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package ecommerce.payments.v1;
+
+option java_package = "com.ecom.payments.v1";
+option java_multiple_files = true;
+
+import "payments/payment_models.proto";
+import "transport/transport_options.proto";
+
+service PaymentService {
+
+  rpc ProcessPayment(ProcessPaymentRequest) returns (ProcessPaymentResponse) {
+    option (transport.rest) = {
+      method: "POST",
+      path: "/v1/payments",
+      body: "*"
+    };
+    option (transport.kafka) = {
+      topic: "payment-processed",
+      key_field: "order_id",
+      value_field: "*"
+    };
+  }
+}
+
+message ProcessPaymentRequest {
+  Payment payment = 1;
+}
+
+message ProcessPaymentResponse {
+  Payment payment = 1;
+}
