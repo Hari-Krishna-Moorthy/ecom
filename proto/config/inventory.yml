@@ -1,0 +1,3 @@
+inventory:
+  rest:
+    host: "http://inventory-service:8081"

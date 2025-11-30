@@ -1,0 +1,37 @@
+services:
+  order:
+    rest:
+      host: "http://order-service:8080"
+      default_headers:
+        X-Service: "order"
+        X-Env: "prod"
+
+    kafka:
+      brokers:
+        - "kafka-1:9092"
+        - "kafka-2:9092"
+      default_headers:
+        source-service: "order"
+
+  inventory:
+    rest:
+      host: "http://inventory-service:8081"
+      default_headers:
+        X-Service: "inventory"
+
+    kafka:
+      brokers:
+        - "kafka-1:9092"
+      default_headers:
+        source-service: "inventory"
+
+  payments:
+    kafka:
+      brokers:
+        - "kafka-1:9092"
+      default_headers:
+        source-service: "payments"
+
+defaults:
+  timeout_ms: 2000
+  retry_count: 2

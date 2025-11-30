@@ -1,0 +1,4 @@
+payments:
+  kafka:
+    brokers:
+      - "kafka-1:9092"
