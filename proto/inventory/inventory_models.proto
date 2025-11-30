@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package ecommerce.inventory.v1;
+
+option go_package = "github.com/Hari-Krishna-Moorthy/ecom/gen/inventory/go";
+
+message InventoryItem {
+  string item_id = 1;
+  string sku = 2;
+  int32 quantity = 3;
+}

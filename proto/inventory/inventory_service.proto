@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package ecommerce.inventory.v1;
+
+option go_package = "github.com/Hari-Krishna-Moorthy/ecom/gen/inventory/go";
+
+import "inventory/inventory_models.proto";
+import "transport/transport_options.proto";
+
+service InventoryService {
+
+  rpc UpdateStock(UpdateStockRequest) returns (UpdateStockResponse) {
+    option (transport.rest) = {
+      method: "POST",
+      path: "/v1/inventory/update",
+      body: "*"
+    };
+    option (transport.kafka) = {
+      topic: "inventory-updated",
+      key_field: "item.item_id",
+      value_field: "item"
+    };
+  }
+}
+
+message UpdateStockRequest {
+  InventoryItem item = 1;
+}
+
+message UpdateStockResponse {
+  InventoryItem item = 1;
+}
