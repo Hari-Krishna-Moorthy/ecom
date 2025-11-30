@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package ecommerce.order.v1;
+
+option ruby_package = "Ecommerce::Order::V1";
+
+import "order/order_models.proto";
+import "transport/transport_options.proto";
+
+service OrderService {
+
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse) {
+    option (transport.rest) = {
+      method: "POST",
+      path: "/v1/orders",
+      body: "order"
+    };
+    option (transport.kafka) = {
+      topic: "orders-created",
+      key_field: "order.id",
+      value_field: "order"
+    };
+  }
+
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse) {
+    option (transport.rest) = {
+      method: "GET",
+      path: "/v1/orders/{id}"
+    };
+  }
+}
+
+message CreateOrderRequest {
+  Order order = 1;
+}
+
+message CreateOrderResponse {
+  Order order = 1;
+}
+
+message GetOrderRequest {
+  string id = 1;
+}
+
+message GetOrderResponse {
+  Order order = 1;
+}
